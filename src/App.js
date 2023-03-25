@@ -1,42 +1,39 @@
-import React from 'react';
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import { React, useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import axios from 'axios';
+import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react';
+import Header from './components/Header';
+import Calendar from './components/Calendar/Calendar';
+import Events from './components/Events/Events';
+import EventPage from './components/EventPage/EventPage';
+import RedirectPage from './components/RedirectPage';
+import defaultTheme from '@chakra-ui/theme';
+import { RecoilRoot } from 'recoil';
 
+export const theme = extendBaseTheme({
+  fonts: {
+    heading: `'Roboto', sans-serif`,
+    body: `'Roboto', sans-serif`,
+    size: '14px',
+  },
+  components: {
+    Modal: defaultTheme.components.Modal,
+    Select: defaultTheme.components.Select,
+  },
+});
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box>
-    </ChakraProvider>
+    <RecoilRoot>
+      <ChakraBaseProvider theme={theme}>
+        <Header />
+        <Routes>
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/events/:id" element={<EventPage />} />
+          <Route path="*" element={<RedirectPage path="/calendar" />} />
+        </Routes>
+      </ChakraBaseProvider>
+    </RecoilRoot>
   );
 }
-
 export default App;
