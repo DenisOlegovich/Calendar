@@ -1,15 +1,16 @@
-import { React} from 'react';
+import { React } from 'react';
 import { Box, SimpleGrid } from '@chakra-ui/react';
 import EventPageItem from './EventPageItem';
 import { useParams } from 'react-router-dom';
-import { useRecoilValue} from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { todoItemsState } from '../../state/atoms';
-
-function EventPage({ data }) {
+import { useGetEvents } from '../../Api/hooks/useGetEvents';
+function EventPage() {
+  const { data } = useGetEvents();
   const { id } = useParams();
   const todoItems = useRecoilValue(todoItemsState);
   return (
-    <Box paddingBottom="20px" fontSize="20px">
+    <Box paddingBottom="20px" fontSize="14px">
       <SimpleGrid spacingX="40px" spacingY="20px">
         <EventPageItem
           id={data?.[id]?.id}

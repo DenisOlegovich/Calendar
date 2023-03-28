@@ -1,56 +1,68 @@
 import React from 'react';
 //import { CiGrid41 } from 'react-icons/ci';
-import { Container, Flex, Spacer } from '@chakra-ui/react';
+import { Container, Flex, useMediaQuery, Box, Link } from '@chakra-ui/react';
 //import { BsCalendar3Range } from 'react-icons/bs';
-import { CalendarIcon, HamburgerIcon} from '@chakra-ui/icons';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { CalendarIcon, HamburgerIcon } from '@chakra-ui/icons';
+// import { Link } from 'react-router-dom';
+
 //import {AppstoreOutlined} from "@ant-design/icons";
 //import {CalendarOutlined} from "@ant-design/icons";
 
 function Header() {
-  const StyledLink = styled(Link)`
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    border: none;
-    color: #1890ff;
-    font-size: 15px;
-    gap: 5px;
-    &:hover,
-    &:visited,
-    &:focus {
-      text-decoration: underline;
-      text-decoration-position: under;
-      text-underline-offset: 10px;
-    }
-  `;
-  const StyledHamburgerIcon = styled(HamburgerIcon)`
-    &:hover,
-    &:visited,
-    &:focus {
-      text-decoration: underline;
-      text-decoration-position: under;
-      text-underline-offset: 10px;
-    }
-  `;
+  const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
+
   return (
     <Container
       p="20px"
-      // fontSize="20px"
       gap="30px"
+      fontFamily="heading"
+      // fontSize={theme.fonts.size}
+      //
     >
-      <Flex p="20px" gap="30px" justify-content="flex-end" align-items="center">
-        <Spacer />
-        <StyledLink to="/events">
-          <StyledHamburgerIcon />
-          {/* <Icon as={StyledHamburgerIcon} /> */}
-          События
-        </StyledLink>
-        <StyledLink to="/calendar">
-          <CalendarIcon />
-          Календарь
-        </StyledLink>
+      <Flex
+        p="20px"
+        gap="30px"
+        align-items="center"
+        justifyContent={isSmallerThan800 ? 'center' : 'flex-end'}
+      >
+        {/* <Spacer /> */}
+        <Box>
+          <Link
+            display="inline-flex"
+            alignItems="center"
+            textDecoration="none"
+            border="none"
+            color="#1890ff"
+            fontSize="15px"
+            gap="5px"
+            _hover={{ borderBottom: '1.5px solid #1890ff' }}
+            _visited={{ borderBottom: '1.5px solid #1890ff' }}
+            _focus={{ borderBottom: '1.5px solid #1890ff' }}
+            href="/events"
+          >
+            <HamburgerIcon />
+            {/* <Icon as={StyledHamburgerIcon} /> */}
+            События
+          </Link>
+        </Box>
+        <Box>
+          <Link
+            display="inline-flex"
+            alignItems="center"
+            textDecoration="none"
+            border="none"
+            color="#1890ff"
+            fontSize="15px"
+            gap="5px"
+            _hover={{ borderBottom: '1.5px solid #1890ff' }}
+            _visited={{ borderBottom: '1.5px solid #1890ff' }}
+            _focus={{ borderBottom: '1.5px solid #1890ff' }}
+            href="/calendar"
+          >
+            <CalendarIcon />
+            Календарь
+          </Link>
+        </Box>
       </Flex>
     </Container>
   );

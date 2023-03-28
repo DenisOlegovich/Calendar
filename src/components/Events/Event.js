@@ -5,19 +5,15 @@ import {
   Container,
   Img,
   Heading,
+  Link,
+  Text,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+// import { Link } from 'react-router-dom';
 
 function Event({ title, date, image, id }) {
   let date1 = new Date(date);
   const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
-  const StyledLink = styled(Link)`
-    text-decoration: none;
-    border: none;
-    color: #1890ff;
-    font-size: 20px;
-  `;
+
   return (
     <Container
       backgroundColor="#FFFFFF"
@@ -32,19 +28,24 @@ function Event({ title, date, image, id }) {
         alignItems="center"
         paddingLeft="15px"
         paddingRight="15px"
+        padding="10px"
       >
-        <Heading as="h5" fontWeight="500">{capitalize(title)}</Heading>
-        <StyledLink to={`/events/${id}`}>Больше</StyledLink>
+        <Heading as="h5" fontWeight="700">
+          {capitalize(title)}
+        </Heading>
+        <Link color="#1890ff" href={`/events/${id}`}>
+          Больше
+        </Link>
       </Flex>
       <Img w="400px" h="255px" src={image} alt="Фотки нет"></Img>
-      <Box paddingTop="15px" paddingLeft="25px">
-        <p>
+      <Box paddingTop="15px" paddingLeft="25px" fontWeight="700">
+        <Text as="p">
           {date1.getDate() +
             '.' +
             (date1.getMonth() + 1) +
             '.' +
             date1.getFullYear()}
-        </p>
+        </Text>
       </Box>
     </Container>
   );

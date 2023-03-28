@@ -1,8 +1,15 @@
-import { React, useState } from 'react';
+import { React, useState, useMemo } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { Box, Button, Container, Flex, Spacer, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Spacer,
+  VStack,
+  Select,
+} from '@chakra-ui/react';
 
-import DeleteWindow from './DeleteWindow';
 import CalendarTask from './CalendarTask';
 import { todoItemsState } from '../../state/atoms';
 //
@@ -18,32 +25,35 @@ function Calendar() {
     const newList = _todoItemsState.filter(_item => _item.id !== id);
     setTodoItemsState(newList);
   }
-  const filteredData = todoItems
-    .filter(event => {
+  const filteredData = useMemo(() => {
+    if (!todoItems) {
+      return [];
+    }
+
+    return todoItems.filter(event => {
+      const year = new Date(event.date).getFullYear();
+      const month = new Date(event.date).getMonth() + 1;
       if (selectedDate.year && selectedDate.month) {
         return (
-          event.date ===
-          `${selectedDate.year}-${selectedDate.month}-${event.date.slice(-16)}`
+          `${year}-${month}` === `${selectedDate.year}-${selectedDate.month}`
         );
       } else {
         return true;
       }
-    })
-    .slice(0, displayCount);
-  console.log(todoItems);
+    });
+  }, [todoItems, selectedDate]);
   return (
     <VStack>
-      <Container minW="70%" maxW="100%" marginLeft="auto" marginRight="auto">
+      <Container minW="70%" marginLeft="auto" marginRight="auto">
         <Flex alignItems="flex-end">
           <Spacer />
           <Flex alignItems="flex-end">
             <Spacer />
-            <Box>
+            <Flex>
               <label htmlFor="year-select"></label>
-              <select
-                name="year"
+              <Select
                 id="year-select"
-                value={selectedDate.year}
+                value={selectedDate?.year}
                 onChange={e =>
                   setSelectedDate({ ...selectedDate, year: e.target.value })
                 }
@@ -51,13 +61,11 @@ function Calendar() {
                 <option value="">Выбрать год</option>
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
-              </select>
+              </Select>
 
-              <label htmlFor="month-select"></label>
-              <select
-                name="month"
+              <Select
                 id="month-select"
-                value={selectedDate.month}
+                value={selectedDate?.month}
                 onChange={e =>
                   setSelectedDate({ ...selectedDate, month: e.target.value })
                 }
@@ -75,19 +83,13 @@ function Calendar() {
                 <option value="10">Октябрь</option>
                 <option value="11">Ноябрь</option>
                 <option value="12">Декабрь</option>
-              </select>
-            </Box>
+              </Select>
+            </Flex>
           </Flex>
         </Flex>
 
         <VStack>
-          <Box
-            paddingBottom="20px"
-            fontSize="20px"
-            gap="30px"
-            minW="70%"
-            maxW="100%"
-          >
+          <Box paddingBottom="20px" fontSize="20px" gap="30px" w="100%">
             {filteredData.map(todoItems => (
               <CalendarTask
                 key={todoItems?.id}
@@ -114,7 +116,6 @@ function Calendar() {
             Загрузить больше
           </Button>
         </Flex>
-        <DeleteWindow />
       </Container>
     </VStack>
   );
