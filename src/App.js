@@ -9,6 +9,9 @@ import RedirectPage from './components/RedirectPage';
 import defaultTheme from '@chakra-ui/theme';
 import { RecoilRoot } from 'recoil';
 
+
+
+
 export const theme = extendBaseTheme({
   fonts: {
     heading: `'Roboto', sans-serif`,
