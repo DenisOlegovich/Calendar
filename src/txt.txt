@@ -21,5 +21,3 @@
 6)Оптимизация в useQuery
 7)EventPageItem => EventItem
 8)Вынести модальные окна
-
-Commit
