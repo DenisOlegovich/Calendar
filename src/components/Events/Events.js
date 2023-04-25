@@ -16,26 +16,39 @@ import { useGetEvents } from '../../Api/hooks/useGetEvents';
 function Events() {
   const { data } = useGetEvents();
 
+  // const memoizedData = useMemo(() => data, [data]);
   const [selectedDate, setSelectedDate] = useState({ year: null, month: null });
 
   const [isSmallerThan1285] = useMediaQuery('(max-width: 1285px)');
-  const filteredData = useMemo(() => {
-    if (!data) {
-      return [];
-    }
+  // const filteredData = useMemo(() => {
+  //   if (!data) {
+  //     return [];
+  //   }
 
-    return data.filter(event => {
-      const year = new Date(event.date).getFullYear();
-      const month = new Date(event.date).getMonth() + 1;
-      if (selectedDate.year && selectedDate.month) {
-        return (
-          `${year}-${month}` === `${selectedDate.year}-${selectedDate.month}`
-        );
-      } else {
-        return true;
-      }
-    });
-  }, [data, selectedDate]);
+  //   return data.filter(event => {
+  //     const year = new Date(event.date).getFullYear();
+  //     const month = new Date(event.date).getMonth() + 1;
+  //     if (selectedDate.year && selectedDate.month) {
+  //       return (
+  //         `${year}-${month}` === `${selectedDate.year}-${selectedDate.month}`
+  //       );
+  //     } else {
+  //       return true;
+  //     }
+  //   });
+  // }, [data, selectedDate]);
+  const filteredData = data?.filter(event => {
+    const year = new Date(event.date).getFullYear();
+    const month = new Date(event.date).getMonth() + 1;
+    if (selectedDate.year && selectedDate.month) {
+      return (
+        `${year}-${month}` === `${selectedDate.year}-${selectedDate.month}`
+      );
+    } else {
+      return true;
+    }
+  });
+
   return (
     <Flex justifyContent={isSmallerThan1285 ? 'center' : 'space-between'}>
       <Container minW="70%" maxW="100%" marginLeft="auto" marginRight="auto">
@@ -86,7 +99,7 @@ function Events() {
                 key={data.id}
                 id={data.id}
                 title={data.title}
-                date={data.date}
+                date={new Date(data.date)}
                 description={data.description}
                 image={data.image}
               />

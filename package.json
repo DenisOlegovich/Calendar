@@ -18,6 +18,7 @@
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-icons": "^3.11.0",
     "react-modal": "^3.16.1",
     "react-query": "^3.39.3",
@@ -26,7 +27,6 @@
     "react-scripts": "^5.0.1",
     "recoil": "^0.7.7",
     "sort-by": "^0.0.2",
-    "styled-components": "^5.3.9",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

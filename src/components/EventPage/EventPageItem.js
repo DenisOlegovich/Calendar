@@ -1,4 +1,5 @@
 import { React, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import {
   Box,
   Flex,
@@ -16,52 +17,51 @@ import {
   FormControl,
   Input,
   Heading,
-  useMediaQuery,
   Text,
   UnorderedList,
   ListItem,
 } from '@chakra-ui/react';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { todoItemsState } from '../../state/atoms';
+import ExclamationCircle from '../Icons/ExclamationCircle';
 
 function EventPageItem({ id, title, date, image, description }) {
-  let date1 = new Date(date);
-  const capitalize = str => str?.charAt(0).toUpperCase() + str?.slice(1);
   const todoItems = useRecoilValue(todoItemsState);
-  const todoItemsId = todoItems.find(item => item.id === id);
-
+  const todoItemsId = todoItems.find(item => item.id === id); //useMemo
   const [modalIsOpen1, setModalIsOpen1] = useState(false);
   const [modalIsOpen2, setModalIsOpen2] = useState(false);
   const [name, setName] = useState({ firstName: '', lastName: '' });
-  const [visitorCount, setVisitorCount] = useState(
-    todoItemsId ? todoItemsId.newVisitorCount : 0
-  );
+  // const [visitorCount, setVisitorCount] = useState(
+  //   todoItemsId ? todoItemsId.newVisitorCount : 0
+  // );
 
-  const [visitors, setVisitors] = useState([]);
-  const [visitorsFirstName, setVisitorsFirstName] = useState(
-    todoItemsId ? todoItemsId.newVisitorFirstName : ''
-  );
-  const [visitorsLastName, setVisitorsLastName] = useState(
-    todoItemsId ? todoItemsId.newVisitorLastName : ''
-  );
+  // const [visitors, setVisitors] = useState(
+  //   todoItemsId ? todoItemsId.newVisitor : []
+  // );
+  // const [visitorsFirstName, setVisitorsFirstName] = useState(
+  //   todoItemsId ? todoItemsId.newVisitorFirstName : ''
+  // );
+  // const [visitorsLastName, setVisitorsLastName] = useState(
+  //   todoItemsId ? todoItemsId.newVisitorLastName : ''
+  // );
 
-  const [subscribed, setSubscribed] = useState(todoItemsId ? true : false);
+  // const [subscribed, setSubscribed] = useState(false);
   const setTodoList = useSetRecoilState(todoItemsState);
-  const [isSmallerThan900] = useMediaQuery('(max-width: 900px)');
 
   function handleOkClick() {
     const newVisitor = {
       firstName: name.firstName,
       lastName: name.lastName,
+      subscribed: true,
     };
-    const newVisitorFirstName = name.firstName;
-    const newVisitorLastName = name.lastName;
-    const newVisitorCount = visitorCount + 1;
-    setVisitorCount(newVisitorCount);
-    setVisitors([...visitors, newVisitor]);
-    setVisitorsFirstName([...visitorsFirstName, newVisitorFirstName]);
-    setVisitorsLastName([...visitorsLastName, newVisitorLastName]);
-    setSubscribed(true);
+    // const newVisitorFirstName = name.firstName;
+    // const newVisitorLastName = name.lastName;
+    // const newVisitorCount = visitorCount + 1;
+    // setVisitorCount(newVisitorCount);
+    // setVisitors([...visitors, newVisitor]);
+    // setVisitorsFirstName([...visitorsFirstName, newVisitorFirstName]);
+    // setVisitorsLastName([...visitorsLastName, newVisitorLastName]);
+    // setSubscribed(true);
     setName({ firstName: '', lastName: '' });
     setTodoList(oldTodolist => {
       return [
@@ -72,24 +72,36 @@ function EventPageItem({ id, title, date, image, description }) {
           date,
           image,
           description,
-          newVisitorCount,
-          newVisitor,
-          newVisitorFirstName,
-          newVisitorLastName,
+          // newVisitorCount,
+          visitor: newVisitor,
+          // newVisitorFirstName,
+          // newVisitorLastName,
+          count: 1,
         },
       ];
     });
     closeModal1();
   }
 
+  //react-hook-form
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
   const handleUnsubscribe = () => {
-    setVisitorCount(0);
-    setVisitors([]);
-    setVisitorsFirstName('');
-    setVisitorsLastName('');
+    // setVisitorCount(0);
+    // setVisitors([]);
+    // setVisitorsFirstName('');
+    // setVisitorsLastName('');
+
+    setTodoList(prev => prev.filter(item => item.id !== id));
     closeModal2();
-    setSubscribed(false);
+    // setSubscribed(false);
   };
+
+  const capitalize = str => str?.charAt(0).toUpperCase() + str?.slice(1);
 
   function openModal1() {
     setModalIsOpen1(true);
@@ -113,16 +125,17 @@ function EventPageItem({ id, title, date, image, description }) {
     setName({ ...name, lastName: event.target.value });
   }
 
+  console.log(todoItemsId);
   return (
     <Container MinW="70%" margin="10px">
       <Flex
-        direction={isSmallerThan900 ? 'column' : 'row'}
+        direction={{ base: 'column', lg: 'row' }}
         alignItems="space-between"
       >
         <Image
           w="auto"
           h="auto"
-          paddingRight={isSmallerThan900 ? '0' : '30px'}
+          paddingRight={{ base: 0, lg: 30 }}
           src={image}
           alt="Фотки нет"
           paddingLeft="auto"
@@ -142,11 +155,11 @@ function EventPageItem({ id, title, date, image, description }) {
                   backgroundColor="#F9F0FF"
                   padding="1px 8px"
                 >
-                  {date1.getDate() +
+                  {date.getDate() +
                     '.' +
-                    (date1.getMonth() + 1) +
+                    (date.getMonth() + 1) +
                     '.' +
-                    date1.getFullYear()}
+                    date.getFullYear()}
                 </Text>
               </Flex>
             </Flex>
@@ -155,7 +168,7 @@ function EventPageItem({ id, title, date, image, description }) {
           <Text
             marginTop="30px"
             maxH="300px"
-            marginBottom={isSmallerThan900 ? '15px' : '150px'}
+            marginBottom={{ base: 15, lg: 150 }}
             as="p"
           >
             {description}
@@ -176,7 +189,7 @@ function EventPageItem({ id, title, date, image, description }) {
                 padding="5px"
                 onClick={openModal1}
                 id="subscribe-button"
-                display={subscribed ? 'none' : 'block'}
+                display={todoItemsId?.visitor.subscribed ? 'none' : 'block'}
               >
                 {'>'} Записаться
               </Button>
@@ -194,7 +207,7 @@ function EventPageItem({ id, title, date, image, description }) {
                 // display="none"
                 onClick={openModal2}
                 id="unsubscribe-button"
-                display={subscribed ? 'block' : 'none'}
+                display={todoItemsId?.visitor.subscribed ? 'block' : 'none'}
               >
                 {'>'} Отписаться
               </Button>
@@ -209,6 +222,7 @@ function EventPageItem({ id, title, date, image, description }) {
             <ModalBody>
               <FormControl>
                 <Input
+                  {...register('firstName', { required: true })}
                   placeholder="Имя"
                   type="text"
                   value={name.firstName}
@@ -228,6 +242,7 @@ function EventPageItem({ id, title, date, image, description }) {
               <Button
                 border="1px solid"
                 borderRadius="50px"
+                fontSize="14px"
                 color="rgba(66, 66, 66, 0.45)"
                 fontWeight="700"
                 padding="7px 20px"
@@ -239,6 +254,7 @@ function EventPageItem({ id, title, date, image, description }) {
               <Button
                 borderRadius="25px"
                 padding="7px 20px"
+                fontSize="14px"
                 color="white"
                 fontWeight="700"
                 bg="#1890FF"
@@ -253,25 +269,17 @@ function EventPageItem({ id, title, date, image, description }) {
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 22 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 0C4.92545 0 0 4.92545 0 11C0 17.0746 4.92545 22 11 22C17.0746 22 22 17.0746 22 11C22 4.92545 17.0746 0 11 0ZM11 20.1339C5.9567 20.1339 1.86607 16.0433 1.86607 11C1.86607 5.9567 5.9567 1.86607 11 1.86607C16.0433 1.86607 20.1339 5.9567 20.1339 11C20.1339 16.0433 16.0433 20.1339 11 20.1339Z"
-                  fill="#FAAD14"
-                />
-              </svg>
-              Вы уверены, что хотите отписаться?
+              <Flex alignItems="center" fontWeight="700" fontSize="16px">
+                <ExclamationCircle />
+                Вы уверены, что хотите отписаться?
+              </Flex>
             </ModalHeader>
             <Spacer />
             <ModalFooter>
               <Button
                 border="1px solid"
                 borderRadius="50px"
+                fontSize="14px"
                 color="rgba(66, 66, 66, 0.45)"
                 fontWeight="700"
                 padding="7px 20px"
@@ -283,6 +291,7 @@ function EventPageItem({ id, title, date, image, description }) {
               <Button
                 borderRadius="25px"
                 padding="7px 20px"
+                fontSize="14px"
                 color="white"
                 fontWeight="700"
                 bg="#1890FF"
@@ -297,17 +306,17 @@ function EventPageItem({ id, title, date, image, description }) {
 
       <Spacer />
       <Box paddingTop="50px" fontWeight="700">
-        Посетители {visitorCount}
+        Посетители {todoItemsId?.title === undefined ? 0 : todoItemsId.count}
       </Box>
       <Spacer />
       <Box>
-        {visitorsFirstName.length === 0 ? (
+        {todoItemsId?.title === undefined ? (
           <Text as="span">Пока никто не записан</Text>
         ) : (
           <>
             <UnorderedList listStyleType="none" marginLeft="0" paddingLeft="0">
               <ListItem>
-                {visitorsFirstName} {visitorsLastName}
+                {todoItemsId?.visitor.firstName} {todoItemsId?.visitor.lastName}
               </ListItem>
             </UnorderedList>
           </>

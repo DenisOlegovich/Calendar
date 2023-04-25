@@ -1,9 +1,11 @@
 import React from 'react';
 //import { CiGrid41 } from 'react-icons/ci';
-import { Container, Flex, useMediaQuery, Box, Link } from '@chakra-ui/react';
+import { Container, Flex, useMediaQuery, Box } from '@chakra-ui/react';
 //import { BsCalendar3Range } from 'react-icons/bs';
-import { CalendarIcon, HamburgerIcon } from '@chakra-ui/icons';
-// import { Link } from 'react-router-dom';
+// import { CalendarIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { Link } from 'react-router-dom';
+import EventIcon from './Icons/EventIcon';
+import CalendarIcon from './Icons/CalendarIcon';
 
 //import {AppstoreOutlined} from "@ant-design/icons";
 //import {CalendarOutlined} from "@ant-design/icons";
@@ -28,36 +30,40 @@ function Header() {
         {/* <Spacer /> */}
         <Box>
           <Link
-            display="inline-flex"
-            alignItems="center"
-            textDecoration="none"
-            border="none"
-            color="#1890ff"
-            fontSize="15px"
-            gap="5px"
-            _hover={{ borderBottom: '1.5px solid #1890ff' }}
-            _visited={{ borderBottom: '1.5px solid #1890ff' }}
-            _focus={{ borderBottom: '1.5px solid #1890ff' }}
-            href="/events"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              textDecoration: 'none',
+              border: 'none',
+              color: '#1890ff',
+              fontSize: '15px',
+              gap: '5px',
+              _hover: { borderBottom: '1.5px solid #1890ff' },
+              _visited: { borderBottom: '1.5px solid #1890ff' },
+              _focus: { borderBottom: '1.5px solid #1890ff' },
+            }}
+            to="/events"
           >
-            <HamburgerIcon />
+            <EventIcon />
             {/* <Icon as={StyledHamburgerIcon} /> */}
             События
           </Link>
         </Box>
         <Box>
           <Link
-            display="inline-flex"
-            alignItems="center"
-            textDecoration="none"
-            border="none"
-            color="#1890ff"
-            fontSize="15px"
-            gap="5px"
-            _hover={{ borderBottom: '1.5px solid #1890ff' }}
-            _visited={{ borderBottom: '1.5px solid #1890ff' }}
-            _focus={{ borderBottom: '1.5px solid #1890ff' }}
-            href="/calendar"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              textDecoration: 'none',
+              border: 'none',
+              color: '#1890ff',
+              fontSize: '15px',
+              gap: '5px',
+              _hover: { borderBottom: '1.5px solid #1890ff' },
+              _visited: { borderBottom: '1.5px solid #1890ff' },
+              _focus: { borderBottom: '1.5px solid #1890ff' },
+            }}
+            to="/calendar"
           >
             <CalendarIcon />
             Календарь

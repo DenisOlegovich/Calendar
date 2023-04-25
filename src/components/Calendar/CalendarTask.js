@@ -14,11 +14,13 @@ import {
   ModalFooter,
   useDisclosure,
   useMediaQuery,
-  Link,
+  IconButton,
 } from '@chakra-ui/react';
-// import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+// import styled from 'styled-components';
 import { AiFillDelete } from 'react-icons/ai';
+import ExclamationCircle from '../Icons/ExclamationCircle';
+import DeleteIcon from '../Icons/DeleteIcon';
 
 function CalendarTask({ title, date, description, image, id, deleteEvent }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,19 +34,24 @@ function CalendarTask({ title, date, description, image, id, deleteEvent }) {
   //   color: #1890ff;
   //   font-size: 14px;
   // `;
+
   function DeleteModal() {
     return (
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Удаление события</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>Вы уверены, что отказаться?</ModalBody>
+          <ModalBody>
+            <Flex paddingTop="15px" alignItems="center" fontWeight="700">
+              <ExclamationCircle />
+              Вы уверены, что отказаться?
+            </Flex>
+          </ModalBody>
 
           <ModalFooter>
             <Button
               colorScheme="blue"
               border="1px solid"
+              fontSize="14px"
               color="rgba(66, 66, 66, 0.45)"
               fontWeight="700"
               borderRadius="50px"
@@ -57,6 +64,7 @@ function CalendarTask({ title, date, description, image, id, deleteEvent }) {
             <Button
               borderRadius="25px"
               padding="7px 20px"
+              fontSize="14px"
               color="white"
               fontWeight="700"
               bg="#1890FF"
@@ -73,7 +81,7 @@ function CalendarTask({ title, date, description, image, id, deleteEvent }) {
   return (
     <Flex
       maxW="1500px"
-      minW="80%"
+      // minW="80%"
       justifyContent="space-between"
       borderBottom="1px solid"
       paddingTop="15px"
@@ -93,7 +101,9 @@ function CalendarTask({ title, date, description, image, id, deleteEvent }) {
       </Box>
       {isSmallerThan600 ? (
         <Flex alignItems="center" justifyContent="center">
-          <AiFillDelete bg="white" border="none" onClick={onOpen} />
+          <IconButton onClick={onOpen}>
+            <DeleteIcon />
+          </IconButton>
         </Flex>
       ) : (
         <Flex justifyContent="space-between" alignItems="center">
@@ -102,18 +112,25 @@ function CalendarTask({ title, date, description, image, id, deleteEvent }) {
             color="#1890FF"
             border="none"
             onClick={onOpen}
-            fontSize="15px"
+            fontSize="14px"
             paddingRight="10px"
           >
             Удалить событие
           </Button>
-          <Link color="#1890ff" href={`/events/${id}`}>
+          <Link
+            style={{
+              textDecoration: 'none',
+              border: 'none',
+              fontSize: '14px',
+              color: '#1890ff',
+            }}
+            to={`/events/${id}`}
+          >
             Перейти на страницу
           </Link>
-
-          <DeleteModal />
         </Flex>
       )}
+      <DeleteModal />
     </Flex>
   );
 }

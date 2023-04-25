@@ -9,9 +9,6 @@ import RedirectPage from './components/RedirectPage';
 import defaultTheme from '@chakra-ui/theme';
 import { RecoilRoot } from 'recoil';
 
-
-
-
 export const theme = extendBaseTheme({
   fonts: {
     heading: `'Roboto', sans-serif`,
@@ -32,7 +29,7 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<EventPage />} />
-          <Route path="*" element={<RedirectPage path="/calendar" />} />
+          <Route path="*" element={<RedirectPage />} />
         </Routes>
       </ChakraBaseProvider>
     </RecoilRoot>
