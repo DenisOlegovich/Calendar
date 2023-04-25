@@ -220,23 +220,26 @@ function EventPageItem({ id, title, date, image, description }) {
             <ModalHeader>{title}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <FormControl>
-                <Input
-                  {...register('firstName', { required: true })}
-                  placeholder="Имя"
-                  type="text"
-                  value={name.firstName}
-                  onChange={handleFirstNameChange}
-                />
-              </FormControl>
-              <FormControl>
-                <Input
-                  placeholder="Фамилия"
-                  type="text"
-                  value={name.lastName}
-                  onChange={handleLastNameChange}
-                />
-              </FormControl>
+              <form onSubmit={handleSubmit(handleOkClick)}>
+                <FormControl>
+                  <Input
+                    {...register('firstName', { required: true })}
+                    placeholder="Имя"
+                    type="text"
+                    value={name.firstName}
+                    onChange={handleFirstNameChange}
+                  />
+                </FormControl>
+
+                <FormControl>
+                  <Input
+                    placeholder="Фамилия"
+                    type="text"
+                    value={name.lastName}
+                    onChange={handleLastNameChange}
+                  />
+                </FormControl>
+              </form>
             </ModalBody>
             <ModalFooter>
               <Button
