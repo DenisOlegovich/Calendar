@@ -15,33 +15,54 @@ import { todoItemsState } from '../../state/atoms';
 //
 
 function Calendar() {
-  const todoItems = useRecoilValue(todoItemsState);
+  // const todoItems = useRecoilValue(todoItemsState);
   // const [data, setData] = useState(todoItems);
   const [selectedDate, setSelectedDate] = useState({ year: null, month: null });
   const [displayCount, setDisplayCount] = useState(3);
-  const [_todoItemsState, setTodoItemsState] = useRecoilState(todoItemsState);
-
+  const [todoItems, setTodoItemsState] = useRecoilState(todoItemsState);
+  // console.log(todoItems);
   function deleteEvent(id) {
-    const newList = _todoItemsState.filter(_item => _item.id !== id);
-    setTodoItemsState(newList);
+    // const newList = todoItems.filter(_item => _item.id !== id);
+    setTodoItemsState(prev => prev.filter(_item => _item.id !== id));
   }
-  const filteredData = useMemo(() => {
-    if (!todoItems) {
-      return [];
-    }
+  // const filteredData = useMemo(() => {
+  //   if (!todoItems) {
+  //     return [];
+  //   }
 
+  //   return todoItems.filter(event => {
+  //     const year = new Date(event.date).getFullYear();
+  //     const month = new Date(event.date).getMonth() + 1;
+  //     if (selectedDate.year && selectedDate.month) {
+  //       return (
+  //         `${year}-${month}` === `${selectedDate.year}-${selectedDate.month}`
+  //       );
+  //     } else {
+  //       return true;
+  //     }
+  //   });
+  // }, [todoItems, selectedDate]);
+  const filteredData = useMemo(() => {
     return todoItems.filter(event => {
       const year = new Date(event.date).getFullYear();
       const month = new Date(event.date).getMonth() + 1;
-      if (selectedDate.year && selectedDate.month) {
-        return (
-          `${year}-${month}` === `${selectedDate.year}-${selectedDate.month}`
-        );
-      } else {
-        return true;
-      }
+      console.log(year, selectedDate.year, month, selectedDate.month);
+      return (
+        !(selectedDate.year && selectedDate.month) ||
+        `${year}-${month}` === `${selectedDate.year}-${selectedDate.month}`
+        // year === selectedDate.year && month === selectedDate.month
+      );
+      //   // if (selectedDate.year && selectedDate.month) {
+      //   //   return (
+      //   //     `${year}-${month}` === `${selectedDate.year}-${selectedDate.month}`
+      //   //   );
+      //   // } else {
+      //   //   return true;
+      //   // }
     });
+    // return todoItems;
   }, [todoItems, selectedDate]);
+  // filterdData = [] or true
   return (
     <VStack>
       <Container minW="70%" marginLeft="auto" marginRight="auto">

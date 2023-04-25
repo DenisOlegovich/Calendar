@@ -6,22 +6,36 @@ import { useRecoilValue } from 'recoil';
 import { todoItemsState } from '../../state/atoms';
 import { useGetEvents } from '../../Api/hooks/useGetEvents';
 function EventPage() {
-  const { data } = useGetEvents();
   const { id } = useParams();
+  const { data: event } = useGetEvents({
+    select: data => {
+      const event = data.find(el => `${el.id}` === id);
+      if (event) {
+        return {
+          ...event,
+          date: new Date(event.date),
+        };
+      }
+    },
+    enabled: !!id,
+  });
+
   const todoItems = useRecoilValue(todoItemsState);
   return (
     <Box paddingBottom="20px" fontSize="14px">
       <SimpleGrid spacingX="40px" spacingY="20px">
-        <EventPageItem
-          id={data?.[id]?.id}
-          key={data?.[id]?.id}
-          title={data?.[id]?.title}
-          date={data?.[id]?.date}
-          description={data?.[id]?.description}
-          image={data?.[id]?.image}
-          visitorsCount={todoItems?.[id]?.visitorsCount}
-          visitors={todoItems?.[id]?.visitors}
-        />
+        {event && (
+          <EventPageItem
+            id={event.id}
+            key={event.id}
+            title={event.title}
+            date={event.date}
+            description={event.description}
+            image={event.image}
+            visitorsCount={todoItems?.[id]?.visitorsCount}
+            visitors={todoItems?.[id]?.visitors}
+          />
+        )}
       </SimpleGrid>
     </Box>
   );
