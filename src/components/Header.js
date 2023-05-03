@@ -21,52 +21,54 @@ function Header() {
       >
         <Box>
           <NavLink
-            style={{
-              display: 'inline-flex',
+          style={({ isActive }) => ({
+            display: 'inline-flex',
               alignItems: 'center',
               textDecoration: 'none',
               border: 'none',
               color: '#1890ff',
               fontSize: '15px',
               gap: '5px',
-            }
-          }
-            onMouseOver={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
-            onMouseOut={e => e.target.style.borderBottom= 'none'}
+              borderBottom: isActive ? '1.5px solid #1890ff' : 'none',
+          })}
+            // onMouseOver={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
+            // onMouseOut={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
             onClick={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
             onFocus={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
             activeStyle={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
             to="/events"
           >
             <EventIcon />
-
             События
           </NavLink>
         </Box>
         <Box>
-          <Link
-            style={{
+          <NavLink
+            style={({ isActive }) => ({
               display: 'inline-flex',
-              alignItems: 'center',
-              textDecoration: 'none',
-              border: 'none',
-              color: '#1890ff',
-              fontSize: '15px',
-              gap: '5px',
-            }}
-            onMouseOver={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
-            onMouseOut={e => e.target.style.borderBottom= 'none'}
+                alignItems: 'center',
+                textDecoration: 'none',
+                border: 'none',
+                color: '#1890ff',
+                fontSize: '15px',
+                gap: '5px',
+                borderBottom: isActive ? '1.5px solid #1890ff' : 'none',
+            })}
+            // onMouseOver={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
+            // onMouseOut={(e) => e.target.style.borderBottom= '1.5px solid #1890ff'}
             onClick={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
             onFocus={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
+            activeStyle={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
             to="/calendar"
           >
             <CalendarIcon />
             Календарь
-          </Link>
+          </NavLink>
         </Box>
       </Flex>
     </Container>
   );
 }
 export default Header;
+
 
