@@ -127,15 +127,15 @@ function EventPageItem({ id, title, date, image, description }) {
 
   console.log(todoItemsId);
   return (
-    <Container MinW="70%" margin="10px">
+    <Container margin="10px">
       <Flex
-        direction={{ base: 'column', lg: 'row' }}
+        direction={{ base: 'column', xl: 'row' }}
         alignItems="space-between"
       >
         <Image
           w="auto"
           h="auto"
-          paddingRight={{ base: 0, lg: 30 }}
+          paddingRight={{ base: 0, xl: 30 }}
           src={image}
           alt="Фотки нет"
           paddingLeft="auto"
@@ -168,7 +168,7 @@ function EventPageItem({ id, title, date, image, description }) {
           <Text
             marginTop="30px"
             maxH="300px"
-            marginBottom={{ base: 15, lg: 150 }}
+            marginBottom={{ base: 15, xl: 150 }}
             as="p"
           >
             {description}

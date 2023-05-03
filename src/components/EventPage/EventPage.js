@@ -1,5 +1,5 @@
 import { React } from 'react';
-import { Box, SimpleGrid, Spacer } from '@chakra-ui/react';
+import { Box, SimpleGrid, Spacer, Flex, useMediaQuery } from '@chakra-ui/react';
 import EventPageItem from './EventPageItem';
 import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
@@ -22,7 +22,11 @@ function EventPage() {
   const [isSmallerThan1285] = useMediaQuery('(max-width: 1285px)');
   const todoItems = useRecoilValue(todoItemsState);
   return (
-    <Box paddingBottom="20px" fontSize="14px">
+    <Box
+      paddingBottom="20px"
+      fontSize="14px"
+      style={{ margin: '0 auto', width: '70%' }}
+    >
       <Flex justifyContent={isSmallerThan1285 ? 'center' : 'space-between'}>
         {event && (
           <EventPageItem
