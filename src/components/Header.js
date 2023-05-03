@@ -70,10 +70,3 @@ function Header() {
 }
 export default Header;
 
-
-<Link to="/" style={{ color: 'blue', textDecoration: 'none' }} 
-  activeStyle={{ color: 'red', textDecoration: 'underline' }}
-  style={window.location.pathname === '/' ? { color: 'red', textDecoration: 'underline' } : {}}
->
-  Главная
-</Link>
