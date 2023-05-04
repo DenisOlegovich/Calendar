@@ -89,6 +89,9 @@ function EventPageItem({ id, title, date, image, description }) {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  
+  const onSubmit = (data) => {alert(JSON.stringify(data))};
+//react-hook-form
 
   const handleUnsubscribe = () => {
     // setVisitorCount(0);
@@ -125,9 +128,8 @@ function EventPageItem({ id, title, date, image, description }) {
     setName({ ...name, lastName: event.target.value });
   }
 
-  console.log(todoItemsId);
   return (
-    <Container margin="10px">
+    <Container margin="10px" maxW={{ base: '50%', xl: '100%' }}>
       <Flex
         direction={{ base: 'column', xl: 'row' }}
         alignItems="space-between"
@@ -220,7 +222,7 @@ function EventPageItem({ id, title, date, image, description }) {
             <ModalHeader>{title}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <form onSubmit={handleSubmit(handleOkClick)}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl>
                   <Input
                     {...register('firstName', { required: true })}
