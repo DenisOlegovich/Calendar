@@ -20,10 +20,13 @@ import {
   Text,
   UnorderedList,
   ListItem,
+  Avatar,
 } from '@chakra-ui/react';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { todoItemsState } from '../../state/atoms';
 import ExclamationCircle from '../Icons/ExclamationCircle';
+
+// import { Avatar } from '../Icons/Avatar.jpg';
 
 function EventPageItem({ id, title, date, image, description }) {
   const todoItems = useRecoilValue(todoItemsState);
@@ -47,6 +50,8 @@ function EventPageItem({ id, title, date, image, description }) {
 
   // const [subscribed, setSubscribed] = useState(false);
   const setTodoList = useSetRecoilState(todoItemsState);
+  let dsFiveWords = description.split().slice(0, 5);
+  // dsFiveWords = ' '.join(dsFiveWords);
 
   function handleOkClick() {
     const newVisitor = {
@@ -89,9 +94,11 @@ function EventPageItem({ id, title, date, image, description }) {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  
-  const onSubmit = (data) => {alert(JSON.stringify(data))};
-//react-hook-form
+
+  const onSubmit = data => {
+    alert(JSON.stringify(data));
+  };
+  //react-hook-form
 
   const handleUnsubscribe = () => {
     // setVisitorCount(0);
@@ -135,8 +142,7 @@ function EventPageItem({ id, title, date, image, description }) {
         alignItems="space-between"
       >
         <Image
-          w="auto"
-          h="auto"
+          backgroundSize="cover"
           paddingRight={{ base: 0, xl: 30 }}
           src={image}
           alt="Фотки нет"
@@ -219,12 +225,16 @@ function EventPageItem({ id, title, date, image, description }) {
         <Modal isOpen={modalIsOpen1} onClose={closeModal1}>
           <ModalOverlay />
           <ModalContent width="572px" height="310px">
-            <ModalHeader>{title}</ModalHeader>
+            <ModalHeader>Записаться на событие</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
+              <Image src="../Icons/Avatar.jpg" />
+              <Text fontWeight="700">{title}</Text>
+              <Text>{dsFiveWords}</Text>
+
               <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl>
-                  <Input
+                  <input
                     {...register('firstName', { required: true })}
                     placeholder="Имя"
                     type="text"
