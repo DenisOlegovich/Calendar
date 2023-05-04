@@ -228,7 +228,10 @@ function EventPageItem({ id, title, date, image, description }) {
             <ModalHeader>Записаться на событие</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Image src="../Icons/Avatar.jpg" />
+              <Image
+                src="/Users/Denis/Desktop/GitHub/Calendar/src/components/Icons/Avatar.jpg"
+                alt="Фотки нет"
+              ></Image>
               <Text fontWeight="700">{title}</Text>
               <Text>{dsFiveWords}</Text>
 
