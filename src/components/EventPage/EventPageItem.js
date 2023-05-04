@@ -129,7 +129,7 @@ function EventPageItem({ id, title, date, image, description }) {
   }
 
   return (
-    <Container margin="10px" maxW={{ base: '50%', xl: '100%' }}>
+    <Container margin="10px" maxW={{ base: '50%', xl: '100%' }} h="70%">
       <Flex
         direction={{ base: 'column', xl: 'row' }}
         alignItems="space-between"
