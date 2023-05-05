@@ -20,13 +20,10 @@ import {
   Text,
   UnorderedList,
   ListItem,
-  Avatar,
 } from '@chakra-ui/react';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { todoItemsState } from '../../state/atoms';
 import ExclamationCircle from '../Icons/ExclamationCircle';
-
-// import { Avatar } from '../Icons/Avatar.jpg';
 
 function EventPageItem({ id, title, date, image, description }) {
   const todoItems = useRecoilValue(todoItemsState);
@@ -34,24 +31,10 @@ function EventPageItem({ id, title, date, image, description }) {
   const [modalIsOpen1, setModalIsOpen1] = useState(false);
   const [modalIsOpen2, setModalIsOpen2] = useState(false);
   const [name, setName] = useState({ firstName: '', lastName: '' });
-  // const [visitorCount, setVisitorCount] = useState(
-  //   todoItemsId ? todoItemsId.newVisitorCount : 0
-  // );
 
-  // const [visitors, setVisitors] = useState(
-  //   todoItemsId ? todoItemsId.newVisitor : []
-  // );
-  // const [visitorsFirstName, setVisitorsFirstName] = useState(
-  //   todoItemsId ? todoItemsId.newVisitorFirstName : ''
-  // );
-  // const [visitorsLastName, setVisitorsLastName] = useState(
-  //   todoItemsId ? todoItemsId.newVisitorLastName : ''
-  // );
-
-  // const [subscribed, setSubscribed] = useState(false);
   const setTodoList = useSetRecoilState(todoItemsState);
-  let dsFiveWords = description.split().slice(0, 5);
-  // dsFiveWords = ' '.join(dsFiveWords);
+  let dsFiveWords = description.split(' ').slice(0, 5);
+  dsFiveWords = dsFiveWords.join(' ') + '...';
 
   function handleOkClick() {
     const newVisitor = {
@@ -59,14 +42,7 @@ function EventPageItem({ id, title, date, image, description }) {
       lastName: name.lastName,
       subscribed: true,
     };
-    // const newVisitorFirstName = name.firstName;
-    // const newVisitorLastName = name.lastName;
-    // const newVisitorCount = visitorCount + 1;
-    // setVisitorCount(newVisitorCount);
-    // setVisitors([...visitors, newVisitor]);
-    // setVisitorsFirstName([...visitorsFirstName, newVisitorFirstName]);
-    // setVisitorsLastName([...visitorsLastName, newVisitorLastName]);
-    // setSubscribed(true);
+
     setName({ firstName: '', lastName: '' });
     setTodoList(oldTodolist => {
       return [
@@ -96,19 +72,13 @@ function EventPageItem({ id, title, date, image, description }) {
   } = useForm();
 
   const onSubmit = data => {
-    alert(JSON.stringify(data));
+    console.log(JSON.stringify(data));
   };
   //react-hook-form
 
   const handleUnsubscribe = () => {
-    // setVisitorCount(0);
-    // setVisitors([]);
-    // setVisitorsFirstName('');
-    // setVisitorsLastName('');
-
     setTodoList(prev => prev.filter(item => item.id !== id));
     closeModal2();
-    // setSubscribed(false);
   };
 
   const capitalize = str => str?.charAt(0).toUpperCase() + str?.slice(1);
@@ -144,6 +114,8 @@ function EventPageItem({ id, title, date, image, description }) {
         <Image
           backgroundSize="cover"
           paddingRight={{ base: 0, xl: 30 }}
+          maxW="527px"
+          maxH="329px"
           src={image}
           alt="Фотки нет"
           paddingLeft="auto"
@@ -222,22 +194,46 @@ function EventPageItem({ id, title, date, image, description }) {
             </Flex>
           </Box>
         </Box>
-        <Modal isOpen={modalIsOpen1} onClose={closeModal1}>
-          <ModalOverlay />
-          <ModalContent width="572px" height="310px">
-            <ModalHeader>Записаться на событие</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <Image
-                src="/Users/Denis/Desktop/GitHub/Calendar/src/components/Icons/Avatar.jpg"
-                alt="Фотки нет"
-              ></Image>
-              <Text fontWeight="700">{title}</Text>
-              <Text>{dsFiveWords}</Text>
+        <Modal size="xl" isOpen={modalIsOpen1} onClose={closeModal1}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <ModalOverlay />
+            <ModalContent width="572px" height="310px">
+              <ModalHeader fontSize="16px" borderBottom="1px solid #E7E7E7">
+                Записаться на событие
+              </ModalHeader>
+              <ModalCloseButton />
 
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <FormControl>
-                  <input
+              <ModalBody marginTop="15px">
+                <Flex>
+                  <Box>
+                    <Image
+                      src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                      h="38px"
+                      w="38px"
+                      alt="Фотки нет"
+                      marginTop="1px"
+                      marginRight="15px"
+                    ></Image>
+                  </Box>
+                  <Box>
+                    <Text fontWeight="700" fontSize="14px">
+                      {title}
+                    </Text>
+                    <Text color="rgba(66, 66, 66, 0.45)" fontSize="14px">
+                      {dsFiveWords}
+                    </Text>
+                  </Box>
+                </Flex>
+
+                <FormControl marginTop="30px">
+                  <Input
+                    fontSize="14px"
+                    border="1px solid #E7E7E7"
+                    variant="outline"
+                    width="100%"
+                    size="xl"
+                    marginBottom="7px"
+                    padding="5px 12px"
                     {...register('firstName', { required: true })}
                     placeholder="Имя"
                     type="text"
@@ -248,46 +244,53 @@ function EventPageItem({ id, title, date, image, description }) {
 
                 <FormControl>
                   <Input
+                    fontSize="14px"
+                    border="1px solid #E7E7E7"
+                    variant="outline"
+                    width="100%"
+                    size="md"
+                    padding="5px 12px"
                     placeholder="Фамилия"
                     type="text"
                     value={name.lastName}
                     onChange={handleLastNameChange}
                   />
                 </FormControl>
-              </form>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                border="1px solid"
-                borderRadius="50px"
-                fontSize="14px"
-                color="rgba(66, 66, 66, 0.45)"
-                fontWeight="700"
-                padding="7px 20px"
-                marginRight="10px"
-                onClick={closeModal1}
-              >
-                Отмена
-              </Button>
-              <Button
-                borderRadius="25px"
-                padding="7px 20px"
-                fontSize="14px"
-                color="white"
-                fontWeight="700"
-                bg="#1890FF"
-                onClick={handleOkClick}
-              >
-                Ок
-              </Button>
-            </ModalFooter>
-          </ModalContent>
+              </ModalBody>
+              <ModalFooter borderTop="1px solid #E7E7E7">
+                <Button
+                  border="1px solid"
+                  borderRadius="50px"
+                  fontSize="14px"
+                  color="rgba(66, 66, 66, 0.45)"
+                  fontWeight="700"
+                  padding="7px 20px"
+                  marginRight="10px"
+                  onClick={closeModal1}
+                >
+                  Отмена
+                </Button>
+                <Button
+                  borderRadius="25px"
+                  padding="7px 20px"
+                  fontSize="14px"
+                  color="white"
+                  fontWeight="700"
+                  bg="#1890FF"
+                  type="submit"
+                  onClick={handleOkClick}
+                >
+                  Ок
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </form>
         </Modal>
         <Modal isOpen={modalIsOpen2} onClose={closeModal2}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>
-              <Flex alignItems="center" fontWeight="700" fontSize="16px">
+              <Flex alignItems="center" fontWeight="700" fontSize="14px">
                 <ExclamationCircle />
                 Вы уверены, что хотите отписаться?
               </Flex>

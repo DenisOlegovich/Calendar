@@ -93,7 +93,7 @@ function Events() {
         </Flex>
 
         <Box h="auto" paddingBottom="20px">
-          <SimpleGrid minChildWidth="450px" placeItems="center" spacingY="20px">
+          <SimpleGrid minChildWidth="450px" placeItems="center">
             {filteredData?.map(data => (
               <Event
                 key={data.id}
@@ -106,8 +106,6 @@ function Events() {
             ))}
           </SimpleGrid>
         </Box>
-
-        <Flex justifyContent="center" alignItems="center"></Flex>
       </Container>
     </Flex>
   );

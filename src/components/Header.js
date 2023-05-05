@@ -8,11 +8,7 @@ function Header() {
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
 
   return (
-    <Container
-      p="20px"
-      gap="30px"
-      fontFamily="heading"
-    >
+    <Container p="20px" gap="30px" fontFamily="heading">
       <Flex
         p="20px"
         gap="30px"
@@ -21,21 +17,16 @@ function Header() {
       >
         <Box>
           <NavLink
-          style={({ isActive }) => ({
-            display: 'inline-flex',
+            style={({ isActive }) => ({
+              display: 'inline-flex',
               alignItems: 'center',
               textDecoration: 'none',
               border: 'none',
-              color: '#1890ff',
+              color: isActive ? '#1890ff' : '#242424',
               fontSize: '15px',
               gap: '5px',
               borderBottom: isActive ? '1.5px solid #1890ff' : 'none',
-          })}
-            // onMouseOver={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
-            // onMouseOut={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
-            onClick={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
-            onFocus={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
-            activeStyle={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
+            })}
             to="/events"
           >
             <EventIcon />
@@ -46,19 +37,14 @@ function Header() {
           <NavLink
             style={({ isActive }) => ({
               display: 'inline-flex',
-                alignItems: 'center',
-                textDecoration: 'none',
-                border: 'none',
-                color: '#1890ff',
-                fontSize: '15px',
-                gap: '5px',
-                borderBottom: isActive ? '1.5px solid #1890ff' : 'none',
+              alignItems: 'center',
+              textDecoration: 'none',
+              border: 'none',
+              color: isActive ? '#1890ff' : '#242424',
+              fontSize: '15px',
+              gap: '5px',
+              borderBottom: isActive ? '1.5px solid #1890ff' : 'none',
             })}
-            // onMouseOver={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
-            // onMouseOut={(e) => e.target.style.borderBottom= '1.5px solid #1890ff'}
-            onClick={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
-            onFocus={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
-            activeStyle={e => e.target.style.borderBottom= '1.5px solid #1890ff'}
             to="/calendar"
           >
             <CalendarIcon />
@@ -70,5 +56,3 @@ function Header() {
   );
 }
 export default Header;
-
-
