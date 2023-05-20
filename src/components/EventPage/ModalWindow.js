@@ -1,7 +1,6 @@
 import { React, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  Box,
   Flex,
   Spacer,
   Button,
@@ -15,7 +14,50 @@ import {
   FormControl,
   Input,
 } from '@chakra-ui/react';
-function ModalWindow() {
+
+import ExclamationCircle from '../Icons/ExclamationCircle';
+function ModalWindow({ id, title, date, image, description }) {
+  const [modalIsOpen1, setModalIsOpen1] = useState(false);
+  const [modalIsOpen2, setModalIsOpen2] = useState(false);
+  const [name, setName] = useState({ firstName: '', lastName: '' });
+    
+
+  //react-hook-form
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
+  const onSubmit = data => {
+    console.log(JSON.stringify(data));
+  };
+  //react-hook-form
+
+
+  
+  function openModal1() {
+    setModalIsOpen1(true);
+  }
+
+  function closeModal1() {
+    setModalIsOpen1(false);
+  }
+  function openModal2() {
+    setModalIsOpen2(true);
+  }
+
+  function closeModal2() {
+    setModalIsOpen2(false);
+  }
+  function handleFirstNameChange(event) {
+    setName({ ...name, firstName: event.target.value });
+  }
+
+  function handleLastNameChange(event) {
+    setName({ ...name, lastName: event.target.value });
+  }
+
   return (
     <>
       <Modal isOpen={modalIsOpen1} onClose={closeModal1}>
@@ -112,3 +154,6 @@ function ModalWindow() {
     </>
   );
 }
+
+
+export default ModalWindow
