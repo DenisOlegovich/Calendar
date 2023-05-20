@@ -53,10 +53,7 @@ function EventPageItem({ id, title, date, image, description }) {
           date,
           image,
           description,
-          // newVisitorCount,
           visitor: newVisitor,
-          // newVisitorFirstName,
-          // newVisitorLastName,
           count: 1,
         },
       ];
@@ -162,11 +159,12 @@ function EventPageItem({ id, title, date, image, description }) {
                 color="#FFFFFF"
                 variant="link"
                 size="lg"
+                fontWeight="700"
                 // position="absolute"
                 bottom="0px"
                 right="0"
                 borderRadius="50px"
-                padding="5px"
+                padding="10px"
                 onClick={openModal1}
                 id="subscribe-button"
                 display={todoItemsId?.visitor.subscribed ? 'none' : 'block'}
@@ -177,19 +175,21 @@ function EventPageItem({ id, title, date, image, description }) {
               <Button
                 backgroundColor="Red"
                 border="none"
+                color="#FFFFFF"
                 variant="link"
                 size="lg"
+                fontWeight="700"
                 // position="absolute"
                 bottom="0px"
                 right="0"
                 borderRadius="50px"
-                padding="5px"
+                padding="10px"
                 // display="none"
                 onClick={openModal2}
                 id="unsubscribe-button"
                 display={todoItemsId?.visitor.subscribed ? 'block' : 'none'}
               >
-                {'>'} Отписаться
+                Отписаться
               </Button>
             </Flex>
           </Box>

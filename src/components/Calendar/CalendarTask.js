@@ -17,8 +17,6 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-// import styled from 'styled-components';
-import { AiFillDelete } from 'react-icons/ai';
 import ExclamationCircle from '../Icons/ExclamationCircle';
 import DeleteIcon from '../Icons/DeleteIcon';
 
@@ -28,12 +26,6 @@ function CalendarTask({ title, date, description, image, id, deleteEvent }) {
   const [isSmallerThan600] = useMediaQuery('(max-width: 600px)');
 
   const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
-  // const StyledLink = styled(Link)`
-  //   text-decoration: none;
-  //   border: none;
-  //   color: #1890ff;
-  //   font-size: 14px;
-  // `;
 
   function DeleteModal() {
     return (
