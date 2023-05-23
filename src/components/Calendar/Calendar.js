@@ -13,7 +13,6 @@ import {
 
 import CalendarTask from './CalendarTask';
 import { todoItemsState } from '../../state/atoms';
-import DeleteModal from './DeleteModal';
 
 function Calendar() {
   const [selectedDate, setSelectedDate] = useState({ year: null, month: null });
@@ -95,12 +94,6 @@ function Calendar() {
                 deleteEvent={deleteEvent}
               />
             ))}
-            <DeleteModal
-              isOpen={isOpen}
-              onClose={onClose}
-              id={todoItems?.id}
-              deleteEvent={deleteEvent}
-            />
             <Spacer />
           </Box>
         </VStack>
