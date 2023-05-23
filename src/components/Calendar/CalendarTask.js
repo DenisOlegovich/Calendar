@@ -78,6 +78,7 @@ function CalendarTask({ title, date, description, image, id, deleteEvent }) {
           </Link>
         </Flex>
       )}
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -87,7 +88,6 @@ function CalendarTask({ title, date, description, image, id, deleteEvent }) {
               Вы уверены, что отказаться?
             </Flex>
           </ModalBody>
-
           <ModalFooter>
             <Button
               colorScheme="blue"
