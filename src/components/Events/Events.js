@@ -15,7 +15,7 @@ import { useGetEvents } from '../../Api/hooks/useGetEvents';
 
 function Events() {
   const { data } = useGetEvents();
-
+  console.log('Рендер');
   // const memoizedData = useMemo(() => data, [data]);
   const [selectedDate, setSelectedDate] = useState({ year: null, month: null });
 

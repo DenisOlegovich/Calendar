@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Flex, Container, Img, Heading, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
-function Event({ title, date, image, id }) {
+export default React.memo(function Event({ title, date, image, id }) {
   const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
 
   return (
@@ -40,6 +40,4 @@ function Event({ title, date, image, id }) {
       </Box>
     </Container>
   );
-}
-
-export default Event;
+});
