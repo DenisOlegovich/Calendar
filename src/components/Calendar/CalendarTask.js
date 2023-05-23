@@ -19,7 +19,6 @@ import {
 import { Link } from 'react-router-dom';
 import ExclamationCircle from '../Icons/ExclamationCircle';
 import DeleteIcon from '../Icons/DeleteIcon';
-import DeleteModal from './DeleteModal';
 
 function CalendarTask({ title, date, description, image, id, deleteEvent }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
