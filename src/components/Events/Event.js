@@ -9,8 +9,6 @@ export default React.memo(function Event({ title, date, image, id }) {
     <Container
       backgroundColor="#FFFFFF"
       border="1px solid #E7E7E7"
-      // w="408px"
-      // h="379px"
       margin="10px"
       paddingBottom="25px"
     >

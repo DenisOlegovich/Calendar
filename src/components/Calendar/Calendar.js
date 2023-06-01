@@ -33,7 +33,6 @@ function Calendar() {
         `${year}-${month}` === `${selectedDate.year}-${selectedDate.month}`
       );
     });
-    // return todoItems;
   }, [todoItems, selectedDate]);
   return (
     <VStack>

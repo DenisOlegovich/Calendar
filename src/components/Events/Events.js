@@ -7,7 +7,6 @@ import {
   useMediaQuery,
   Select,
 } from '@chakra-ui/react';
-//import EventList from './EventList';
 
 import { SimpleGrid } from '@chakra-ui/react';
 import Event from './Event';
@@ -15,28 +14,10 @@ import { useGetEvents } from '../../Api/hooks/useGetEvents';
 
 function Events() {
   const { data } = useGetEvents();
-  console.log('Рендер');
-  // const memoizedData = useMemo(() => data, [data]);
   const [selectedDate, setSelectedDate] = useState({ year: null, month: null });
 
   const [isSmallerThan1285] = useMediaQuery('(max-width: 1285px)');
-  // const filteredData = useMemo(() => {
-  //   if (!data) {
-  //     return [];
-  //   }
 
-  //   return data.filter(event => {
-  //     const year = new Date(event.date).getFullYear();
-  //     const month = new Date(event.date).getMonth() + 1;
-  //     if (selectedDate.year && selectedDate.month) {
-  //       return (
-  //         `${year}-${month}` === `${selectedDate.year}-${selectedDate.month}`
-  //       );
-  //     } else {
-  //       return true;
-  //     }
-  //   });
-  // }, [data, selectedDate]);
   const filteredData = data?.filter(event => {
     const year = new Date(event.date).getFullYear();
     const month = new Date(event.date).getMonth() + 1;
