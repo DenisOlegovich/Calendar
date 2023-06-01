@@ -160,7 +160,6 @@ function EventPageItem({ id, title, date, image, description }) {
                 variant="link"
                 size="lg"
                 fontWeight="700"
-                // position="absolute"
                 bottom="0px"
                 right="0"
                 borderRadius="50px"
@@ -179,12 +178,10 @@ function EventPageItem({ id, title, date, image, description }) {
                 variant="link"
                 size="lg"
                 fontWeight="700"
-                // position="absolute"
                 bottom="0px"
                 right="0"
                 borderRadius="50px"
                 padding="10px"
-                // display="none"
                 onClick={openModal2}
                 id="unsubscribe-button"
                 display={todoItemsId?.visitor.subscribed ? 'block' : 'none'}
